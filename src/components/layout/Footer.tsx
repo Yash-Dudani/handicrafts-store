@@ -1,6 +1,19 @@
 import { FaInstagram, FaPinterest, FaFacebook } from "react-icons/fa";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Footer() {
+  const router = useRouter();
+
+  const scrollToFeatured = () => {
+    if (router.pathname === "/") {
+      const featuredSection = document.getElementById("featured-products");
+      featuredSection?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push("/#featured-products");
+    }
+  };
+
   return (
     <footer className="bg-[#2C2C2C] text-white py-12 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -23,11 +36,34 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4 sm:mb-6 text-base sm:text-lg">Quick Links</h3>
             <ul className="space-y-2 sm:space-y-3 text-gray-400 text-sm">
-              {["Shop", "Collections", "Artisan Story", "Blog", "Contact"].map((item) => (
-                <li key={item} className="hover:text-[#7D4F2C] cursor-pointer transition-colors duration-300">
-                  {item}
-                </li>
-              ))}
+              <li>
+                <Link href="/shop" className="hover:text-[#7D4F2C] cursor-pointer transition-colors duration-300 block">
+                  Shop
+                </Link>
+              </li>
+              <li>
+                <button 
+                  onClick={scrollToFeatured}
+                  className="hover:text-[#7D4F2C] cursor-pointer transition-colors duration-300 text-left"
+                >
+                  Collections
+                </button>
+              </li>
+              <li>
+                <Link href="/artisans" className="hover:text-[#7D4F2C] cursor-pointer transition-colors duration-300 block">
+                  Artisan Story
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-[#7D4F2C] cursor-pointer transition-colors duration-300 block">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-[#7D4F2C] cursor-pointer transition-colors duration-300 block">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
           
