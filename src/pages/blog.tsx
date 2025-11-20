@@ -12,7 +12,6 @@ export default function Blog() {
       date: "2024-01-15",
       readTime: "3 min read",
       category: "Lifestyle",
-      image: "/images/blog/handcrafted-living.jpg",
       author: {
         name: "Sarah Chen",
         role: "Interior Designer & Craft Enthusiast"
@@ -26,7 +25,6 @@ export default function Blog() {
       date: "2024-01-10",
       readTime: "4 min read",
       category: "Artisan Stories",
-      image: "/images/blog/artisan-stories.jpg",
       author: {
         name: "James Wilson",
         role: "Cultural Anthropologist"
@@ -40,7 +38,6 @@ export default function Blog() {
       date: "2024-01-05",
       readTime: "3 min read",
       category: "Sustainability",
-      image: "/images/blog/sustainable-gifting.jpg",
       author: {
         name: "Emma Rodriguez",
         role: "Environmental Advocate"
@@ -54,7 +51,6 @@ export default function Blog() {
       date: "2023-12-28",
       readTime: "5 min read",
       category: "Craft Techniques",
-      image: "/images/blog/weaving-techniques.jpg",
       author: {
         name: "Dr. Anika Sharma",
         role: "Textile Historian"
@@ -68,7 +64,6 @@ export default function Blog() {
       date: "2023-12-20",
       readTime: "4 min read",
       category: "Care Guide",
-      image: "/images/blog/care-guide.jpg",
       author: {
         name: "Lisa Thompson",
         role: "Conservation Specialist"
@@ -82,7 +77,6 @@ export default function Blog() {
       date: "2023-12-15",
       readTime: "4 min read",
       category: "Craft Culture",
-      image: "/images/blog/maker-movement.jpg",
       author: {
         name: "Michael Brooks",
         role: "Cultural Commentator"
@@ -91,6 +85,16 @@ export default function Blog() {
   ];
 
   const categories = ["All", "Lifestyle", "Artisan Stories", "Sustainability", "Craft Techniques", "Care Guide", "Craft Culture"];
+
+  // Category icons mapping
+  const categoryIcons = {
+    "Lifestyle": "🏡",
+    "Artisan Stories": "👨‍🎨", 
+    "Sustainability": "🌱",
+    "Craft Techniques": "🛠️",
+    "Care Guide": "✨",
+    "Craft Culture": "🎨"
+  };
 
   return (
     <div className="bg-[#FDFBF7] text-[#2C2C2C] min-h-screen">
@@ -131,9 +135,16 @@ export default function Blog() {
                 key={post.id} 
                 className="bg-white rounded-xl shadow-sm border border-[#E8E2D6] overflow-hidden hover:shadow-md transition-all duration-300 hover:border-[#7D4F2C]/20 group"
               >
-                {/* Blog Image */}
-                <div className="h-48 bg-gradient-to-br from-[#7D4F2C]/20 to-[#E8E2D6] relative overflow-hidden">
-                  <div className="absolute inset-0 bg-[#7D4F2C]/10 group-hover:bg-[#7D4F2C]/5 transition-colors duration-300"></div>
+                {/* Blog Image - Professional Gradient with Icon */}
+                <div className="h-48 relative overflow-hidden bg-gradient-to-br from-[#7D4F2C]/10 to-[#EDE7E1]">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">
+                        {categoryIcons[post.category as keyof typeof categoryIcons] || "📝"}
+                      </div>
+                      <p className="text-[#7D4F2C] font-medium text-sm capitalize">{post.category}</p>
+                    </div>
+                  </div>
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-[#7D4F2C]">
                       {post.category}

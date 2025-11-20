@@ -6,23 +6,12 @@ export default function Navbar() {
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const scrollToFeatured = () => {
-    if (router.pathname === "/") {
-      const featuredSection = document.getElementById("featured-products");
-      featuredSection?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      router.push("/#featured-products");
-    }
-    setIsMobileMenuOpen(false);
-  };
-
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <>
       {/* NAVBAR */}
       <nav className="bg-[#FDFBF7] lg:bg-[#FDFBF7]/80 backdrop-blur-md flex justify-between items-center px-4 sm:px-6 lg:px-10 py-4 shadow-sm border-b border-gray-100 sticky top-0 z-50">
-
 
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 lg:space-x-3 group cursor-pointer z-50">
@@ -38,11 +27,6 @@ export default function Navbar() {
           <ul className="flex space-x-8 text-[#2C2C2C]">
             <li className="relative group">
               <Link href="/shop" className="font-medium hover:text-[#7D4F2C]">Shop</Link>
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#7D4F2C] group-hover:w-full transition-all"></span>
-            </li>
-
-            <li className="relative group">
-              <button onClick={scrollToFeatured} className="font-medium hover:text-[#7D4F2C]">Collections</button>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#7D4F2C] group-hover:w-full transition-all"></span>
             </li>
 
@@ -108,15 +92,6 @@ export default function Navbar() {
                 className="block py-4 px-4 text-lg font-medium hover:bg-[#EDE7E1] rounded-lg">
                 Shop
               </Link>
-            </li>
-
-            <li>
-              <button
-                onClick={() => { scrollToFeatured(); closeMobileMenu(); }}
-                className="block w-full text-left py-4 px-4 text-lg font-medium hover:bg-[#EDE7E1] rounded-lg"
-              >
-                Collections
-              </button>
             </li>
 
             <li>

@@ -69,10 +69,31 @@ export default function Shop() {
       title: "Wooden Carving Art",
       price: "₹1800",
       category: "Woodwork"
+    },
+    {
+      id: 10,
+      image: "/images/jewellery-box.jpg",
+      title: "Limited Edition Artisan Bowl",
+      price: "₹2200",
+      category: "Trending Collections"
+    },
+    {
+      id: 11,
+      image: "/images/vase.jpg",
+      title: "Handwoven Textile Masterpiece",
+      price: "₹3200",
+      category: "Trending Collections"
+    },
+    {
+      id: 12,
+      image: "/images/keepsake-box.jpg",
+      title: "Signature Ceramic Dinner Set",
+      price: "₹4500",
+      category: "Trending Collections"
     }
   ];
 
-  const categories = ["All", "Woodwork", "Ceramics",  "Home Decor", "Sculptures"];
+  const categories = ["All", "Trending Collections", "Woodwork", "Ceramics", "Home Decor", "Sculptures"];
 
   const filteredProducts = activeCategory === "All" 
     ? products 
@@ -86,10 +107,10 @@ export default function Shop() {
       <section className="py-12 px-4 sm:px-6 lg:py-20 bg-gradient-to-br from-[#7D4F2C]/10 to-[#FDFBF7]">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-[#2C2C2C] tracking-tight">
-            Our <span className="text-[#7D4F2C]">Collection</span>
+            Explore Our <span className="text-[#7D4F2C]">Gallery</span>
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mb-6 sm:mb-8 px-2">
-            Explore our curated selection of handmade treasures. Each piece is crafted with love and tells a unique story of traditional craftsmanship.
+            Discover handcrafted treasures that tell stories of tradition and passion. Each piece is a unique masterpiece waiting to find its home.
           </p>
           
           {/* Category Filters - Mobile Scrollable */}
@@ -131,7 +152,6 @@ export default function Shop() {
                   image={product.image}
                   title={product.title}
                   price={product.price}
-                  category={product.category}
                 />
               ))}
             </div>

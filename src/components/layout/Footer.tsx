@@ -1,19 +1,7 @@
 import { FaInstagram, FaPinterest, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export default function Footer() {
-  const router = useRouter();
-
-  const scrollToFeatured = () => {
-    if (router.pathname === "/") {
-      const featuredSection = document.getElementById("featured-products");
-      featuredSection?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      router.push("/#featured-products");
-    }
-  };
-
   return (
     <footer className="bg-[#2C2C2C] text-white py-12 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -40,14 +28,6 @@ export default function Footer() {
                 <Link href="/shop" className="hover:text-[#7D4F2C] cursor-pointer transition-colors duration-300 block">
                   Shop
                 </Link>
-              </li>
-              <li>
-                <button 
-                  onClick={scrollToFeatured}
-                  className="hover:text-[#7D4F2C] cursor-pointer transition-colors duration-300 text-left"
-                >
-                  Collections
-                </button>
               </li>
               <li>
                 <Link href="/artisans" className="hover:text-[#7D4F2C] cursor-pointer transition-colors duration-300 block">
