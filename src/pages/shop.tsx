@@ -72,23 +72,23 @@ export default function Shop() {
     },
     {
       id: 10,
-      image: "/images/jewellery-box.jpg",
-      title: "Limited Edition Artisan Bowl",
+      image: "/images/trending1.jpg",
+      title: "Colorful Decorative Plates",
       price: "₹2200",
       category: "Trending Collections"
     },
     {
       id: 11,
-      image: "/images/vase.jpg",
-      title: "Handwoven Textile Masterpiece",
+      image: "/images/buddha.jpg",
+      title: "Buddha Sculpture",
       price: "₹3200",
       category: "Trending Collections"
     },
     {
       id: 12,
-      image: "/images/keepsake-box.jpg",
-      title: "Signature Ceramic Dinner Set",
-      price: "₹4500",
+      image: "/images/wooden-art.jpg",
+      title: "Wooden Craving Art",
+      price: "₹1800",
       category: "Trending Collections"
     }
   ];
