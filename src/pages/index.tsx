@@ -4,6 +4,7 @@ import FeaturedProducts from "@/components/sections/FeaturedProducts";
 import Testimonials from "@/components/ui/TestimonialCard";
 import BlogPreview from "@/components/sections/BlogPreview";
 import Link from "next/link";
+import Reveal from "@/components/animations/Reveal";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section - Fully Responsive */}
+      <Reveal>
       <section className="relative min-h-[90vh] flex flex-col justify-center items-start px-4 sm:px-6 lg:px-20 text-left bg-cover bg-center"
         style={{ backgroundImage: "url('/images/hero.jpg')" }}
       >
@@ -45,12 +47,21 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* Featured Products */}
-      <FeaturedProducts/>
-      <Testimonials/>
-      <BlogPreview/>
+          <Reveal delay={0.1}>
+        <FeaturedProducts />
+      </Reveal>
+      <Reveal delay={0.2}>
+         <Testimonials />
+      </Reveal>
+      <Reveal delay={0.3}>
+         <BlogPreview />
+      </Reveal>
+      <Reveal delay={0.3}>
       <Footer />
+      </Reveal>
     </div>
   );
 }

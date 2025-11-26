@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Link from "next/link";
+import Reveal from "@/components/animations/Reveal";
 
 export default function Login() {
   const router = useRouter();
@@ -34,6 +35,7 @@ export default function Login() {
           </Link>
         </div>
       </nav>
+      <Reveal delay={0.2}>
 
       <div className="flex flex-col items-center justify-center flex-1 px-6">
         <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md border border-[#E8E2D6]">
@@ -74,9 +76,16 @@ export default function Login() {
             >
               Continue
             </button>
+            
           </form>
+          
         </div>
+        
       </div>
+      </Reveal>
+      
     </div>
+    
+    
   );
 }

@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
+import Reveal from "@/components/animations/Reveal";
 
 export default function Blog() {
   const blogPosts = [
@@ -100,7 +101,9 @@ export default function Blog() {
     <div className="bg-[#FDFBF7] text-[#2C2C2C] min-h-screen">
       <Navbar />
 
+     
       {/* Blog Header */}
+      <Reveal delay={0.2}>
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#FDFBF7] to-[#F9F5F0]">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-[#2C2C2C]">
@@ -218,8 +221,11 @@ export default function Blog() {
           </div>
         </div>
       </section>
+      </Reveal>
 
+      <Reveal delay={0.1}>
       <Footer />
+      </Reveal>
     </div>
   );
 }

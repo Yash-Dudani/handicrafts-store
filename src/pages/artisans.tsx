@@ -3,6 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import Image from "next/image";
+import Reveal from "@/components/animations/Reveal";
 
 export default function Artisans() {
   const artisans = [
@@ -58,7 +59,7 @@ export default function Artisans() {
   return (
     <div className="bg-[#FDFBF7] text-[#2C2C2C] min-h-screen">
       <Navbar />
-
+      <Reveal delay={0.2}>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#7D4F2C]/10 to-[#FDFBF7] py-16 lg:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,6 +105,7 @@ export default function Artisans() {
                 }`}
               >
                 {/* Artisan Image */}
+                
                 <div className="w-full lg:w-1/2">
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
                     {/* Placeholder for image - you can replace with actual Image component */}
@@ -137,6 +139,7 @@ export default function Artisans() {
                         📍 {artisan.location} • ⏳ {artisan.experience}
                       </p>
                     </div>
+                    
 
                     <p className="text-[#2C2C2C]/80 leading-relaxed text-lg">
                       {artisan.story}
@@ -164,10 +167,12 @@ export default function Artisans() {
                   </div>
                 </div>
               </div>
+              
             ))}
           </div>
         </div>
       </section>
+      
 
       {/* CTA Section */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-[#7D4F2C]/5 to-[#EDE7E1]">
@@ -194,8 +199,11 @@ export default function Artisans() {
           </div>
         </div>
       </section>
+      </Reveal>
 
+      <Reveal delay={0.1}>
       <Footer />
+      </Reveal>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Reveal from "../animations/Reveal";
 
 interface ProductCardProps {
   image: string;
@@ -8,6 +9,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ image, title, price }: ProductCardProps) {
   return (
+    <Reveal delay={0.1}>
     <div className="bg-white shadow-lg rounded-xl overflow-hidden text-center group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
       <div className="relative overflow-hidden">
         <Image 
@@ -25,5 +27,6 @@ export default function ProductCard({ image, title, price }: ProductCardProps) {
         <p className="font-medium text-[#FDFBF7] text-sm sm:text-base">Price: {price}</p>
       </div>        
     </div>
+    </Reveal>
   );
 }

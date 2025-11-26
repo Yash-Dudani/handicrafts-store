@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import Reveal from "@/components/animations/Reveal";
 
 export default function Profile() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function Profile() {
     <div className="bg-[#FDFBF7] min-h-screen flex flex-col">
       <Navbar />
 
+      <Reveal delay={0.2}>
       <div className="max-w-4xl mx-auto w-full px-6 py-16">
         <h1 className="text-3xl font-semibold text-[#2C2C2C]">
           Hi, <span className="text-[#7D4F2C]">{name}</span> 👋
@@ -31,8 +33,11 @@ export default function Profile() {
           </Link>
         </div>
       </div>
+      </Reveal>
 
+      <Reveal delay={0.1}>
       <Footer />
+      </Reveal>
     </div>
   );
 }

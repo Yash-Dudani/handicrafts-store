@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/ui/ProductCard";
 import { useState } from "react";
+import Reveal from "@/components/animations/Reveal";
 
 export default function Shop() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -103,6 +104,7 @@ export default function Shop() {
     <div className="bg-[#FDFBF7] text-[#2C2C2C] min-h-screen">
       <Navbar />
 
+      <Reveal delay={0.2}>
       {/* Shop Header - Mobile Optimized */}
       <section className="py-12 px-4 sm:px-6 lg:py-20 bg-gradient-to-br from-[#7D4F2C]/10 to-[#FDFBF7]">
         <div className="max-w-7xl mx-auto text-center">
@@ -158,6 +160,7 @@ export default function Shop() {
           )}
         </div>
       </section>
+      </Reveal>
 
       <Footer />
     </div>
