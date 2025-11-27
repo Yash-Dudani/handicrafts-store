@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import CartIcon from "@/components/ui/CartIcon";
 
 export default function Navbar() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center space-x-6">
           <ul className="flex space-x-8 text-[#2C2C2C]">
             <li className="relative group">
               <Link href="/shop" className="font-medium hover:text-[#7D4F2C]">Shop</Link>
@@ -60,73 +61,85 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* PROFILE BUTTON */}
-          <div className="relative">
-            {!isLoggedIn ? (
-              <button
-                onClick={() => router.push("/login")}
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#EDE7E1] hover:bg-[#7D4F2C] hover:text-white transition-all duration-300 border border-[#E8E2D6]"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                </svg>
-              </button>
-            ) : (
-              <div className="relative">
+          {/* Cart Icon */}
+          <div className="flex items-center space-x-4">
+            <CartIcon />
+
+            {/* PROFILE BUTTON */}
+            <div className="relative">
+              {!isLoggedIn ? (
                 <button
-                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                  onClick={() => router.push("/login")}
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-[#EDE7E1] hover:bg-[#7D4F2C] hover:text-white transition-all duration-300 border border-[#E8E2D6]"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                   </svg>
                 </button>
+              ) : (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-[#EDE7E1] hover:bg-[#7D4F2C] hover:text-white transition-all duration-300 border border-[#E8E2D6]"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                    </svg>
+                  </button>
 
-                {isProfileDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg border p-2 z-50">
-                    <p className="px-3 py-2 text-sm text-gray-700 border-b">
-                      Hi, <span className="text-[#7D4F2C] font-medium">{username}</span>
-                    </p>
+                  {isProfileDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg border p-2 z-50">
+                      <p className="px-3 py-2 text-sm text-gray-700 border-b">
+                        Hi, <span className="text-[#7D4F2C] font-medium">{username}</span>
+                      </p>
 
-                    <button
-                      onClick={() => {
-                        router.push("/profile");
-                        setIsProfileDropdownOpen(false);
-                      }}
-                      className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded-lg"
-                    >
-                      My Profile
-                    </button>
+                      <button
+                        onClick={() => {
+                          router.push("/profile");
+                          setIsProfileDropdownOpen(false);
+                        }}
+                        className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded-lg"
+                      >
+                        My Profile
+                      </button>
 
-                    <button
-                      onClick={() => {
-                        localStorage.removeItem("username");
-                        setIsLoggedIn(false);
-                        setIsProfileDropdownOpen(false);
-                        router.push("/");
-                      }}
-                      className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded-lg text-red-600"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
+                      <button
+                        onClick={() => {
+                          localStorage.removeItem("username");
+                          setIsLoggedIn(false);
+                          setIsProfileDropdownOpen(false);
+                          router.push("/");
+                        }}
+                        className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded-lg text-red-600"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden relative w-8 h-8 z-50"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6">
-            <span className={`absolute h-0.5 w-6 bg-[#2C2C2C] transition-all ${isMobileMenuOpen ? "rotate-45" : "-translate-y-2"}`} />
-            <span className={`absolute h-0.5 w-6 bg-[#2C2C2C] transition-all ${isMobileMenuOpen ? "opacity-0" : "opacity-100"}`} />
-            <span className={`absolute h-0.5 w-6 bg-[#2C2C2C] transition-all ${isMobileMenuOpen ? "-rotate-45" : "translate-y-2"}`} />
+        <div className="lg:hidden flex items-center space-x-4">
+          {/* Mobile Cart Icon */}
+          <div className="relative">
+            <CartIcon />
           </div>
-        </button>
+          
+          <button
+            className="relative w-8 h-8 z-50"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6">
+              <span className={`absolute h-0.5 w-6 bg-[#2C2C2C] transition-all ${isMobileMenuOpen ? "rotate-45" : "-translate-y-2"}`} />
+              <span className={`absolute h-0.5 w-6 bg-[#2C2C2C] transition-all ${isMobileMenuOpen ? "opacity-0" : "opacity-100"}`} />
+              <span className={`absolute h-0.5 w-6 bg-[#2C2C2C] transition-all ${isMobileMenuOpen ? "-rotate-45" : "translate-y-2"}`} />
+            </div>
+          </button>
+        </div>
       </nav>
 
       {/* MOBILE MENU */}
@@ -177,6 +190,19 @@ export default function Navbar() {
               <Link href="/contact" onClick={closeMobileMenu}
                 className="block py-4 px-4 text-lg font-medium hover:bg-[#EDE7E1] rounded-lg">
                 Contact
+              </Link>
+            </li>
+
+            {/* 🟤 MOBILE CART LINK */}
+            <li>
+              <Link href="/cart" onClick={closeMobileMenu}
+                className="block py-4 px-4 text-lg font-medium hover:bg-[#EDE7E1] rounded-lg flex items-center">
+                <div className="w-6 h-6 bg-[#7D4F2C] rounded-full flex items-center justify-center mr-3">
+                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                Shopping Cart
               </Link>
             </li>
 
