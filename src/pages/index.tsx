@@ -13,9 +13,13 @@ export default function Home() {
 
       {/* Hero Section - Fully Responsive */}
       <Reveal>
-      <section className="relative min-h-[90vh] flex flex-col justify-center items-start px-4 sm:px-6 lg:px-20 text-left bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/hero.jpg')" }}
-      >
+<section
+  className="relative min-h-[90vh] flex flex-col justify-center items-start px-4 sm:px-6 lg:px-20 text-left bg-cover bg-center hero-move-bg"
+  style={{ backgroundImage: "url('/images/hero.jpg')" }}
+>
+
+
+
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 lg:to-transparent"></div>
         
         <div className="relative z-10 max-w-2xl w-full">

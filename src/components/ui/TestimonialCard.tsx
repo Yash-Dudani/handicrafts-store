@@ -31,19 +31,21 @@ export default function Testimonials() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
         {testimonials.map((testimonial) => (
-          <div key={testimonial.id} className="bg-white p-6 rounded-xl shadow-sm border border-[#E8E2D6] hover:shadow-md transition-all duration-300">
-            <div className="flex text-[#FFC107] mb-4">
+          <div 
+            key={testimonial.id} 
+            className="p-6 rounded-xl shadow-lg border border-[#D4B896] hover:shadow-xl transition-all duration-300 bg-[#EDE4D8] hover:bg-[#E5D9C8] group transform hover:-translate-y-1"
+          >
+            <div className="flex text-[#B8860B] mb-4 text-lg">
               {'★'.repeat(testimonial.rating)}
-              {'☆'.repeat(5 - testimonial.rating)}
             </div>
             
-            <p className="text-[#2C2C2C]/90 italic mb-4 leading-relaxed">
-              “{testimonial.message}”
+            <p className="text-[#2C2C2C] italic mb-4 leading-relaxed text-[15px]">
+              "{testimonial.message}"
             </p>
             
-            <div className="border-t border-[#E8E2D6] pt-4">
+            <div className="border-t border-[#D4B896] pt-4">
               <h4 className="text-lg font-semibold text-[#7D4F2C]">{testimonial.name}</h4>
-              <p className="text-sm text-[#2C2C2C]/60">{testimonial.location}</p>
+              <p className="text-sm text-[#2C2C2C]/80 font-medium">{testimonial.location}</p>
             </div>
           </div>
         ))}

@@ -14,15 +14,68 @@ export default function Navbar() {
   // Load login state on client ONLY
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("username");
-      if (stored) {
-        setIsLoggedIn(true);
-        setUsername(stored);
-      }
+      const checkAuthStatus = () => {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        
+        if (isLoggedIn === "true" && currentUser) {
+          try {
+            const userData = JSON.parse(currentUser);
+            setIsLoggedIn(true);
+            setUsername(userData.name);
+          } catch (error) {
+            console.error("Error parsing user data:", error);
+            setIsLoggedIn(false);
+            setUsername("");
+          }
+        } else {
+          setIsLoggedIn(false);
+          setUsername("");
+        }
+      };
+
+      // Check auth initially
+      checkAuthStatus();
+
+      // Listen for storage changes (like login/logout from other tabs/components)
+      const handleStorageChange = () => {
+        checkAuthStatus();
+      };
+
+      window.addEventListener('storage', handleStorageChange);
+      
+      // Custom event listener for login/logout from other components
+      window.addEventListener('authChange', handleStorageChange);
+
+      return () => {
+        window.removeEventListener('storage', handleStorageChange);
+        window.removeEventListener('authChange', handleStorageChange);
+      };
     }
   }, []);
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+    setUsername("");
+    setIsProfileDropdownOpen(false);
+    
+    // Dispatch event to notify other components
+    window.dispatchEvent(new Event('authChange'));
+    router.push("/");
+  };
+
+  const handleProfileClick = () => {
+    if (isLoggedIn) {
+      router.push("/profile");
+      setIsProfileDropdownOpen(false);
+    } else {
+      router.push("/login");
+    }
+  };
 
   return (
     <>
@@ -67,55 +120,51 @@ export default function Navbar() {
 
             {/* PROFILE BUTTON */}
             <div className="relative">
-              {!isLoggedIn ? (
-                <button
-                  onClick={() => router.push("/login")}
-                  className="flex items-center justify-center w-10 h-10 rounded-full bg-[#EDE7E1] hover:bg-[#7D4F2C] hover:text-white transition-all duration-300 border border-[#E8E2D6]"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                  </svg>
-                </button>
-              ) : (
-                <div className="relative">
+              <button
+                onClick={handleProfileClick}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#EDE7E1] hover:bg-[#7D4F2C] hover:text-white transition-all duration-300 border border-[#E8E2D6]"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                </svg>
+              </button>
+
+              {/* Profile Dropdown - Only show when logged in */}
+              {isLoggedIn && isProfileDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 p-2 z-50">
+                  <div className="px-3 py-2 border-b border-gray-100">
+                    <p className="text-sm text-gray-600">Welcome back!</p>
+                    <p className="text-[#7D4F2C] font-medium truncate">{username}</p>
+                  </div>
+
                   <button
-                    onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-[#EDE7E1] hover:bg-[#7D4F2C] hover:text-white transition-all duration-300 border border-[#E8E2D6]"
+                    onClick={() => {
+                      router.push("/profile");
+                      setIsProfileDropdownOpen(false);
+                    }}
+                    className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-50 rounded-md transition-colors"
                   >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                    </svg>
+                    📱 My Profile
                   </button>
 
-                  {isProfileDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg border p-2 z-50">
-                      <p className="px-3 py-2 text-sm text-gray-700 border-b">
-                        Hi, <span className="text-[#7D4F2C] font-medium">{username}</span>
-                      </p>
+                  <button
+                    onClick={() => {
+                      router.push("/profile");
+                      setIsProfileDropdownOpen(false);
+                    }}
+                    className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-50 rounded-md transition-colors"
+                  >
+                    📦 My Orders
+                  </button>
 
-                      <button
-                        onClick={() => {
-                          router.push("/profile");
-                          setIsProfileDropdownOpen(false);
-                        }}
-                        className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded-lg"
-                      >
-                        My Profile
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          localStorage.removeItem("username");
-                          setIsLoggedIn(false);
-                          setIsProfileDropdownOpen(false);
-                          router.push("/");
-                        }}
-                        className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded-lg text-red-600"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  )}
+                  <div className="border-t border-gray-100 mt-2 pt-2">
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-50 rounded-md text-red-600 transition-colors"
+                    >
+                      🚪 Logout
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -129,6 +178,16 @@ export default function Navbar() {
             <CartIcon />
           </div>
           
+          {/* Profile Icon for Mobile */}
+          <button
+            onClick={handleProfileClick}
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-[#EDE7E1] hover:bg-[#7D4F2C] hover:text-white transition-all duration-300 border border-[#E8E2D6]"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+            </svg>
+          </button>
+
           <button
             className="relative w-8 h-8 z-50"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -163,6 +222,14 @@ export default function Navbar() {
             </div>
             <h1 className="text-xl font-semibold text-[#2C2C2C]">Handmade Haven</h1>
           </div>
+
+          {/* User Info in Mobile Menu */}
+          {isLoggedIn && (
+            <div className="mb-6 p-4 bg-[#EDE7E1] rounded-lg">
+              <p className="text-sm text-gray-600">Welcome back!</p>
+              <p className="text-[#7D4F2C] font-medium">{username}</p>
+            </div>
+          )}
 
           <ul className="flex flex-col space-y-2">
             <li>
@@ -216,15 +283,15 @@ export default function Navbar() {
                   }}
                   className="w-full flex items-center text-left py-4 px-4 text-lg font-medium hover:bg-[#EDE7E1] rounded-lg"
                 >
-                  <div className="w-6 h-6 bg-[#7D4F2C] rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 bg-[#7D4F2C] rounded-full flex items-center justify-center mr-3">
                     <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="ml-3">Login</span>
+                  <span>Login / Sign Up</span>
                 </button>
               ) : (
-                <div>
+                <div className="space-y-2">
                   <button
                     onClick={() => {
                       closeMobileMenu();
@@ -232,20 +299,18 @@ export default function Navbar() {
                     }}
                     className="w-full flex items-center text-left py-4 px-4 text-lg font-medium hover:bg-[#EDE7E1] rounded-lg"
                   >
-                    <div className="w-6 h-6 bg-[#7D4F2C] rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-[#7D4F2C] rounded-full flex items-center justify-center mr-3">
                       <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="ml-3">My Profile</span>
+                    <span>My Profile</span>
                   </button>
 
                   <button
                     onClick={() => {
-                      localStorage.removeItem("username");
-                      setIsLoggedIn(false);
                       closeMobileMenu();
-                      router.push("/");
+                      handleLogout();
                     }}
                     className="w-full text-left py-4 px-4 text-lg font-medium hover:bg-[#EDE7E1] rounded-lg text-red-600"
                   >
@@ -262,6 +327,7 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Overlay for dropdown */}
       {isProfileDropdownOpen && (
         <div
           className="fixed inset-0 z-40"

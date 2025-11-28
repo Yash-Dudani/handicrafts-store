@@ -31,31 +31,39 @@ export default function BlogPreview() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
         {blogs.map((blog) => (
-          <div key={blog.id} className="bg-white p-6 rounded-xl shadow-sm border border-[#E8E2D6] hover:shadow-md transition-all duration-300 hover:border-[#7D4F2C]/20">
-            <div className="flex items-center text-sm text-[#2C2C2C]/60 mb-3">
+          <div 
+            key={blog.id} 
+            className="p-6 rounded-xl shadow-lg border border-[#D4B896] hover:shadow-xl transition-all duration-300 bg-[#EDE4D8] hover:bg-[#E5D9C8] group transform hover:-translate-y-1"
+          >
+            <div className="flex items-center text-sm text-[#7D4F2C] font-semibold mb-3">
               <span>{blog.date}</span>
               <span className="mx-2">•</span>
-              <span>{blog.readTime}</span>
+              <span className="bg-[#7D4F2C]/10 px-2 py-1 rounded-full text-[#7D4F2C]">
+                {blog.readTime}
+              </span>
             </div>
-            <h3 className="text-xl font-semibold text-[#2C2C2C] mb-3 leading-tight">
+            <h3 className="text-xl font-bold text-[#2C2C2C] mb-3 leading-tight group-hover:text-[#7D4F2C] transition-colors">
               {blog.title}
             </h3>
-            <p className="text-[#2C2C2C]/70 leading-relaxed mb-4 text-sm">
+            <p className="text-[#2C2C2C]/90 leading-relaxed mb-4 text-[15px] font-medium">
               {blog.summary}
             </p>
             <a
               href="/blog"
-              className="inline-flex items-center text-[#7D4F2C] font-medium hover:text-[#2C2C2C] transition-colors group"
+              className="inline-flex items-center text-[#7D4F2C] font-semibold hover:text-[#2C2C2C] transition-colors group/readmore border-b-2 border-transparent hover:border-[#7D4F2C] pb-1"
             >
               Read More
-              <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
+              <span className="ml-2 group-hover/readmore:translate-x-2 transition-transform">→</span>
             </a>
           </div>
         ))}
       </div>
       
       <div className="text-center mt-12">
-        <a href="/blog" className="inline-block bg-[#7D4F2C] text-white px-8 py-3 rounded-lg hover:bg-[#2C2C2C] transition-colors">
+        <a 
+          href="/blog" 
+          className="inline-block bg-[#7D4F2C] text-white px-10 py-4 rounded-xl hover:bg-[#6b4125] transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 font-semibold text-lg"
+        >
           View All Blog Posts
         </a>
       </div>
