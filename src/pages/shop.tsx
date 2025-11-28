@@ -16,7 +16,7 @@ export default function Shop() {
     : productsData.filter(product => product.category === activeCategory);
 
   return (
-    <div className="bg-[#FDFBF7] text-[#2C2C2C] min-h-screen">
+    <div className="bg-[#F5F1EA] text-[#2C2C2C] min-h-screen">
       <Navbar />
 
       <Reveal delay={0.2}>

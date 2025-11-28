@@ -7,11 +7,10 @@ export default function Navbar() {
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
-  // Load login state on client ONLY
+  // Check user authentication status
   useEffect(() => {
     if (typeof window !== "undefined") {
       const checkAuthStatus = () => {
@@ -24,7 +23,7 @@ export default function Navbar() {
             setIsLoggedIn(true);
             setUsername(userData.name);
           } catch (error) {
-            console.error("Error parsing user data:", error);
+            console.log("Error loading user data");
             setIsLoggedIn(false);
             setUsername("");
           }
@@ -34,17 +33,15 @@ export default function Navbar() {
         }
       };
 
-      // Check auth initially
+      // Initial authentication check
       checkAuthStatus();
 
-      // Listen for storage changes (like login/logout from other tabs/components)
+      // Listen for authentication changes
       const handleStorageChange = () => {
         checkAuthStatus();
       };
 
       window.addEventListener('storage', handleStorageChange);
-      
-      // Custom event listener for login/logout from other components
       window.addEventListener('authChange', handleStorageChange);
 
       return () => {
@@ -63,7 +60,7 @@ export default function Navbar() {
     setUsername("");
     setIsProfileDropdownOpen(false);
     
-    // Dispatch event to notify other components
+    // Notify other components about logout
     window.dispatchEvent(new Event('authChange'));
     router.push("/");
   };
@@ -81,7 +78,7 @@ export default function Navbar() {
     <>
       <nav className="bg-[#FDFBF7] lg:bg-[#FDFBF7]/80 backdrop-blur-md flex justify-between items-center px-4 sm:px-6 lg:px-10 py-4 shadow-sm border-b border-gray-100 sticky top-0 z-50">
 
-        {/* Logo */}
+        {/* Website Logo */}
         <Link href="/" className="flex items-center space-x-2 lg:space-x-3 group cursor-pointer z-50">
           <div className="relative w-8 h-8 lg:w-9 lg:h-9">
             <span className="absolute -top-1 left-0 text-black font-bold text-xl lg:text-2xl leading-none">H</span>
@@ -90,7 +87,7 @@ export default function Navbar() {
           <h1 className="text-lg lg:text-xl font-semibold text-[#2C2C2C] tracking-tight">Handmade Haven</h1>
         </Link>
 
-        {/* Desktop Menu */}
+        {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-6">
           <ul className="flex space-x-8 text-[#2C2C2C]">
             <li className="relative group">
@@ -114,11 +111,11 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* Cart Icon */}
+          {/* User Actions */}
           <div className="flex items-center space-x-4">
             <CartIcon />
 
-            {/* PROFILE BUTTON */}
+            {/* User Profile Section */}
             <div className="relative">
               <button
                 onClick={handleProfileClick}
@@ -129,7 +126,7 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              {/* Profile Dropdown - Only show when logged in */}
+              {/* User dropdown menu */}
               {isLoggedIn && isProfileDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 p-2 z-50">
                   <div className="px-3 py-2 border-b border-gray-100">
@@ -173,12 +170,11 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden flex items-center space-x-4">
-          {/* Mobile Cart Icon */}
           <div className="relative">
             <CartIcon />
           </div>
           
-          {/* Profile Icon for Mobile */}
+          {/* Mobile Profile Icon */}
           <button
             onClick={handleProfileClick}
             className="flex items-center justify-center w-8 h-8 rounded-full bg-[#EDE7E1] hover:bg-[#7D4F2C] hover:text-white transition-all duration-300 border border-[#E8E2D6]"
@@ -201,7 +197,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* MOBILE MENU */}
+      {/* Mobile Navigation Menu */}
       <div
         className={`fixed inset-0 bg-[#FDFBF7] z-[999] lg:hidden transform transition-transform duration-300
         ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
@@ -223,7 +219,7 @@ export default function Navbar() {
             <h1 className="text-xl font-semibold text-[#2C2C2C]">Handmade Haven</h1>
           </div>
 
-          {/* User Info in Mobile Menu */}
+          {/* User info for mobile */}
           {isLoggedIn && (
             <div className="mb-6 p-4 bg-[#EDE7E1] rounded-lg">
               <p className="text-sm text-gray-600">Welcome back!</p>
@@ -260,7 +256,7 @@ export default function Navbar() {
               </Link>
             </li>
 
-            {/* 🟤 MOBILE CART LINK */}
+            {/* Shopping Cart Link */}
             <li>
               <Link href="/cart" onClick={closeMobileMenu}
                 className="block py-4 px-4 text-lg font-medium hover:bg-[#EDE7E1] rounded-lg flex items-center">
@@ -273,7 +269,7 @@ export default function Navbar() {
               </Link>
             </li>
 
-            {/* 🟤 MOBILE PROFILE HANDLING */}
+            {/* User Authentication Section */}
             <li>
               {!isLoggedIn ? (
                 <button
@@ -327,7 +323,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Overlay for dropdown */}
+      {/* Dropdown overlay */}
       {isProfileDropdownOpen && (
         <div
           className="fixed inset-0 z-40"

@@ -1,4 +1,4 @@
-// components/ui/AddToCartButton.tsx
+
 import { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -26,18 +26,18 @@ export default function AddToCartButton({
   const handleAction = () => {
     setIsAdding(true);
     
-    // Get existing cart from localStorage
+    // Get current cart items from storage
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
     
     if (variant === "buyNow") {
-      // ✅ FIXED: Buy Now should ADD to existing cart and go to CART PAGE
+      // Buy Now: Add to cart and go to cart page
       const existingItemIndex = existingCart.findIndex((item: any) => item.id === productId);
       
       if (existingItemIndex > -1) {
-        // Agar product already hai, toh quantity add karo
+        // Update quantity if product already exists
         existingCart[existingItemIndex].quantity += quantity;
       } else {
-        // Naya product add karo with selected quantity
+        // Add new product to cart
         existingCart.push({
           id: productId,
           title: productTitle,
@@ -51,11 +51,11 @@ export default function AddToCartButton({
       window.dispatchEvent(new Event("cartUpdated"));
       setIsAdding(false);
       
-      // ✅ CART PAGE PE REDIRECT KARO (not checkout)
+      // Redirect to cart page
       router.push("/cart");
       
     } else {
-      // For Add to Cart: Add product to existing cart WITH QUANTITY
+      // Add to Cart: Add product and show success message
       const existingItemIndex = existingCart.findIndex((item: any) => item.id === productId);
       
       if (existingItemIndex > -1) {
@@ -74,11 +74,11 @@ export default function AddToCartButton({
       window.dispatchEvent(new Event("cartUpdated"));
       setIsAdding(false);
       
-      // ✅ SUCCESS MESSAGE SHOW KARO
+      // Show success confirmation
       setShowSuccess(true);
       setTimeout(() => {
         setShowSuccess(false);
-      }, 2000); // 2 seconds baad auto hide
+      }, 2000);
     }
   };
 
@@ -112,7 +112,7 @@ export default function AddToCartButton({
         {getButtonText()}
       </button>
       
-      {/* ✅ FLOATING SUCCESS MESSAGE - Only for Add to Cart */}
+      {/* Success message popup for Add to Cart */}
       {showSuccess && variant === "addToCart" && (
         <div className="fixed top-20 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-bounce">
           <div className="flex items-center space-x-2">

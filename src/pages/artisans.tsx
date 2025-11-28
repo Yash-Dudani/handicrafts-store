@@ -108,7 +108,7 @@ export default function Artisans() {
                 
                 <div className="w-full lg:w-1/2">
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
-                    {/* Placeholder for image - you can replace with actual Image component */}
+                    
                     <div className="w-full h-full bg-gradient-to-br from-[#7D4F2C]/20 to-[#EDE7E1] flex items-center justify-center">
                       <div className="text-center">
                         <div className="text-6xl mb-4">👨‍🎨</div>
@@ -159,11 +159,7 @@ export default function Artisans() {
                       </div>
                     </div>
 
-                    <Link href={`/artisans/${artisan.id}`}>
-                      <button className="bg-[#7D4F2C] text-white px-6 py-3 rounded-lg hover:bg-[#6b4125] transition-all duration-300 font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                        View Full Portfolio
-                      </button>
-                    </Link>
+                   
                   </div>
                 </div>
               </div>

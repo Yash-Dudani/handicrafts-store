@@ -15,14 +15,14 @@ export default function ProductCard({ id, image, title, price }: ProductCardProp
     <Reveal delay={0.1}>
       <Link href={`/product/${id}`}>
         <div className="bg-white shadow-lg rounded-xl overflow-hidden text-center group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-          <div className="relative overflow-hidden aspect-square"> {/* Added aspect-square */}
+          <div className="relative overflow-hidden aspect-square"> 
             <Image 
               src={image} 
               alt={title} 
               width={400} 
-              height={400}  // Changed to 400x400 for square aspect ratio
+              height={400}  
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              priority={id <= 3} // Optional: priority for above-the-fold images
+              priority={id <= 3}
             />
             <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
           </div>

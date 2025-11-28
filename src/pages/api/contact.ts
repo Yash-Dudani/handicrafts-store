@@ -22,7 +22,7 @@ export default async function handler(
     return res.status(400).json({ message: 'Missing required fields: Full Name, Email, or Phone.' });
   }
 
-  // Directly set your email for Handicrafts Store
+ 
   const recipientEmail = 'yashdudani098@gmail.com';
   const projectType = 'Handmade Haven Handicrafts Store';
 

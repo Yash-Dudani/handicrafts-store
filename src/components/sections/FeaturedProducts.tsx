@@ -7,7 +7,7 @@ export default function FeaturedProducts() {
   const featuredProducts = getFeaturedProducts();
 
   return (
-    <section id="featured-products" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-[#FDFBF7]">
+    <section id="featured-products" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-[#F5F1EA]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-[#2C2C2C] tracking-tight">
