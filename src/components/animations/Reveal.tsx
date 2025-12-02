@@ -1,8 +1,13 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, ReactNode } from "react";
 
-export default function Reveal({ children, delay = 0 }) {
+interface RevealProps {
+  children: ReactNode;
+  delay?: number;
+}
+
+export default function Reveal({ children, delay = 0 }: RevealProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
