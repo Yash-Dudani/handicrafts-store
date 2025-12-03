@@ -72,6 +72,9 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-700 pt-6 sm:pt-8 text-center text-gray-400 text-xs sm:text-sm">
           <p>© 2025 Handmade Haven. All rights reserved.</p>
+           <p className="mt-2 text-xs text-gray-500">
+            Developed by Intern – Yash Dudani from Dynnova Softwares Private Limited.
+          </p>
         </div>
       </div>
     </footer>
